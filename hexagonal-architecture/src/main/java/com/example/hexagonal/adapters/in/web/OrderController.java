@@ -20,8 +20,8 @@ public class OrderController {
 
     @POST
     public Response createOrder(Order order) {
-        orderService.createOrder(order);
-        return Response.status(Response.Status.CREATED).entity(order).build();
+        Order createOrder = orderService.createOrder(order);
+        return Response.status(Response.Status.CREATED).entity(createOrder).build();
     }
 
     @POST
