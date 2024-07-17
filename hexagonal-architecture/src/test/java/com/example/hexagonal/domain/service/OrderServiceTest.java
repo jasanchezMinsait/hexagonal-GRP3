@@ -1,5 +1,6 @@
 package com.example.hexagonal.domain.service;
 
+import com.example.hexagonal.application.OrderService;
 import com.example.hexagonal.domain.model.Order;
 import com.example.hexagonal.domain.model.OrderItem;
 import io.quarkus.test.junit.QuarkusTest;
