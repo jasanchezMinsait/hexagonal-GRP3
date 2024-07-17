@@ -1,4 +1,4 @@
-package com.example.hexagonal.adapters.in;
+package com.example.hexagonal.adapters.in.web;
 
 import com.example.hexagonal.domain.model.Order;
 import com.example.hexagonal.domain.model.OrderItem;

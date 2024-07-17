@@ -1,4 +1,4 @@
-package com.example.hexagonal.adapters;
+package com.example.hexagonal.adapters.in.web;
 
 import com.example.hexagonal.application.ProductService;
 import jakarta.inject.Inject;
