@@ -1,6 +1,6 @@
 package com.example.hexagonal.adapter.in.web;
 
-import com.example.hexagonal.application.service.OrderService;
+import com.example.hexagonal.application.ports.in.OrderUseCase;
 import com.example.hexagonal.domain.model.Order;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -10,42 +10,43 @@ import jakarta.ws.rs.core.Response;
 import java.util.List;
 import java.util.Optional;
 
-@Path("/orders")
+@Path("/ordersV2")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class OrderController {
-    // NO DEBERIA LLAMARSE AL SERVICE, PARA ELLO CREAMOS EL ORDERRESOURCE CON LA ESTRUCTURA COMO DEBE SER
-    OrderService orderService;
+public class OrderResource {
+
+    private final OrderUseCase orderUseCase;
 
     @Inject
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
+    public OrderResource(OrderUseCase orderUseCase) {
+        this.orderUseCase = orderUseCase;
     }
 
     @POST
     public Response createOrder(Order order) {
-        Order createdOrder = orderService.createOrder(order);
+        Order createdOrder = orderUseCase.createOrder(order);
         return Response.status(Response.Status.CREATED).entity(createdOrder).build();
     }
 
     @GET
     @Path("/{id}")
     public Response getOrder(@PathParam("id") Long id) {
-        Optional<Order> order = orderService.findById(id);
+        Optional<Order> order = orderUseCase.findById(id);
         return order.map(value -> Response.ok(value).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());
     }
 
     @GET
     public Response getAllOrders() {
-        List<Order> orders = orderService.findAll();
+        List<Order> orders = orderUseCase.findAll();
         return Response.ok(orders).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteOrder(@PathParam("id") Long id) {
-        orderService.deleteById(id);
+        orderUseCase.deleteById(id);
         return Response.noContent().build();
     }
 }
+
